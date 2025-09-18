@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-page',
@@ -18,14 +18,12 @@ export class BasicPageComponent {
   })
 
   isValidField(fieldName: string): boolean | null {
-    // 📝 (!) A single ! means negation (empty), But a
-    //    (!!) A double !! means if there's something
-    // It is often used to check whether something exists or not, instead of returning null or an object.
-    return !!this.myForm.controls[fieldName].errors
+    return (
+      this.myForm.controls[fieldName].errors &&
+      this.myForm.controls[fieldName].touched)
   }
 
   getFieldError(fieldName: string): string | null {
-
     if (!this.myForm.controls[fieldName]) return null;
 
     const errors = this.myForm.controls[fieldName].errors ?? {};
@@ -44,5 +42,19 @@ export class BasicPageComponent {
     }
 
     return null;
+  }
+
+  onSave() {
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+    // this.myForm.reset();
+    this.myForm.reset({
+      name: '',
+      price: 10,
+      inStorage: 0
+    })
   }
 }
