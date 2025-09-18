@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { SideMenuComponent } from "./shared/components/side-menu/side-menu.component";
 
 @Component({
