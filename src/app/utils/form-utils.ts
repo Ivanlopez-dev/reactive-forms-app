@@ -19,12 +19,20 @@ export class FormUtils {
     return null;
   }
 
+  // isValid
   static isValidField(form: FormGroup, fieldName: string): boolean | null {
     return (
       form.controls[fieldName].errors &&
       form.controls[fieldName].touched)
   };
 
+  static isValidFieldInArray(formArray: FormArray, index: number) {
+    return (
+      formArray.controls[index].errors && formArray.controls[index].touched
+    );
+  }
+
+  // Get field errors
   static getFieldError(form: FormGroup, fieldName: string): string | null {
     if (!form.controls[fieldName]) return null;
     const errors = form.controls[fieldName].errors ?? {};
@@ -32,11 +40,6 @@ export class FormUtils {
     return FormUtils.getTextError(errors);
   }
 
-  static isValidFieldInArray(formArray: FormArray, index: number) {
-    return (
-      formArray.controls[index].errors && formArray.controls[index].touched
-    );
-  }
 
   static getFieldErrorInArray(formArray: FormArray, index: number): string | null {
     if (formArray.controls.length === 0) return null;
