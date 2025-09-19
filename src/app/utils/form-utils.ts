@@ -33,6 +33,9 @@ export class FormUtils {
         case 'emailTaken':
           return `El correo electrónico indicado ya está en uso`;
 
+        case 'notStrider':
+          return `El username strider no está permitido en la plataforma`;
+
         case 'pattern':
           if (errors['pattern'].requiredPattern === FormUtils.emailPattern) {
             return 'El valor de correo electrónico no parece un formato de email';
@@ -102,5 +105,12 @@ export class FormUtils {
     }
 
     return null;
+  }
+
+  // Custom (traditional) synchronous validation
+  static notStrider(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    return value === 'strider' ? { notStrider: true } : null
   }
 }
